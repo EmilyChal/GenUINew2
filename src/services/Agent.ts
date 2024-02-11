@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import {RegistrationDetails, UserLogin } from "../domain/user";
 //import {UserInputsFromUI} from "../domain/userInputsFromUI";
 //import { UserInputsFromUI1 } from "../domain/userInputsFromUI1";
-import {AUTH_API_LOCAL, GEN_API_LOCAL } from "../environmentals";
+import {AUTH_API_LOCAL, GEN_API_LOCAL, AUTH_API_PROD, GEN_API_PROD } from "../environmentals";
 import {UserInputsFromUIEnergy} from "../domain/userInputsFromUIEnergy";
 import {UserInputsFromUITransport} from "../domain/userInputsFromUITransport";
 import {UserInputsFromUIFood} from "../domain/userInputsFromUIFood";
