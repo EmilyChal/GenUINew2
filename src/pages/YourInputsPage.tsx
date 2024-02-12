@@ -79,18 +79,25 @@ export default function YourInputsPage() {
     const [motorbikeSize, setMotorbikeSize] = React.useState('');
     const [typeOfPassengerOnFerry, setTypeOfPassengerOnFerry] = React.useState('');
     const months = [
-        {value:'January'},
-        {value:'February'},
-        {value:'March'},
-        {value:'April'},
-        {value:'May'},
-        {value:'June'},
-        {value:'July'},
-        {value:'August'},
-        {value:'September'},
-        {value:'October'},
-        {value:'November'},
-        {value:'December'}
+        {value:'1'},
+        {value:'2'},
+        {value:'3'},
+        {value:'4'},
+        {value:'5'},
+        {value:'6'},
+        {value:'7'},
+        {value:'8'},
+        {value:'9'},
+        {value:'10'},
+        {value:'11'},
+        {value:'12'}
+    ]
+
+    const years = [
+        {value:'2023'},
+        {value:'2024'},
+        {value:'2025'},
+        {value:'2026'}
     ]
 
     
@@ -106,7 +113,7 @@ export default function YourInputsPage() {
     
     
     async function submitForm1(data: FieldValues) {
-        const {burningOilInKwh, woodLogsInTonnes, propaneInKwh, naturalGasInKwh, lpgInKwh, electricityInKwh,calculationMonth} = data;
+        const {burningOilInKwh, woodLogsInTonnes, propaneInKwh, naturalGasInKwh, lpgInKwh, electricityInKwh,calculationMonth, calculationYear} = data;
         
         
         let inputsFromUIEnergy:UserInputsFromUIEnergy = {
@@ -118,6 +125,7 @@ export default function YourInputsPage() {
             lpgInKwh: parseInt(lpgInKwh)!,
             electricityInKwh: parseInt(electricityInKwh)!,
             calculationMonth:calculationMonth,
+            calculationYear:calculationYear
         }
         console.log(inputsFromUIEnergy);
         await agent.genapi.sendUserInputsFromUIEnergy(inputsFromUIEnergy);
@@ -128,7 +136,8 @@ export default function YourInputsPage() {
     async function submitForm2(data: FieldValues) {
         const {travelledDistanceInMilesByBus,travelledDistanceInMilesByCar,
             travelledDistanceInMilesByFerry,travelledDistanceInMilesInFlight,
-            travelledDistanceInMilesByMotorbike,travelledDistanceInMilesByRail,travelledDistanceInMilesByTaxi,calculationMonth} = data;
+            travelledDistanceInMilesByMotorbike,travelledDistanceInMilesByRail,travelledDistanceInMilesByTaxi,calculationMonth,
+            calculationYear} = data;
         
         console.log(data);
         let inputsFromUITransport:UserInputsFromUITransport = {
@@ -149,6 +158,7 @@ export default function YourInputsPage() {
             taxiType: taxiType,
             travelledDistanceInMilesByTaxi: parseInt(travelledDistanceInMilesByTaxi)!,
             calculationMonth:calculationMonth,
+            calculationYear:calculationYear
             
         }
         console.log(inputsFromUITransport)
@@ -156,7 +166,7 @@ export default function YourInputsPage() {
     }
     
     async function submitForm3(data: FieldValues) {
-        const {preparedMeals,meat,oils,bread,fruit,fish,milk,calculationMonth} = data;
+        const {preparedMeals,meat,oils,bread,fruit,fish,milk,calculationMonth,calculationYear} = data;
         
         console.log(data);
         let inputsFromUIFood:UserInputsFromUIFood = {
@@ -168,7 +178,8 @@ export default function YourInputsPage() {
             fruit:parseInt(fruit)!,
             fish:parseInt(fish)!,
             milk:parseInt(milk)!,
-            calculationMonth:calculationMonth
+            calculationMonth:calculationMonth,
+            calculationYear:calculationYear
             
         }
         await agent.genapi.sendUserInputsFromUIFood(inputsFromUIFood);
@@ -177,7 +188,7 @@ export default function YourInputsPage() {
     async function submitForm4(data: FieldValues) {
         const {restaurants,hotels,pharmaceutical,repairElectricAppliances,
             electricAppliances,electronicalEquipment,education,hairdressing,books, sportEquipment, hobbies,hospital,medical,utensils,
-            repairFurniture,furniture,footwear,clothingAccessories,clothes,calculationMonth} = data;
+            repairFurniture,furniture,footwear,clothingAccessories,clothes,calculationMonth,calculationYear} = data;
         
         console.log(data);
         let inputsFromUIGoods: UserInputsFromUIGoods = {
@@ -201,7 +212,8 @@ export default function YourInputsPage() {
             footwear:parseInt(footwear)!,
             clothingAccessories:parseInt(clothingAccessories)!,
             clothes:parseInt(clothes)!,
-            calculationMonth:calculationMonth
+            calculationMonth:calculationMonth,
+            calculationYear:calculationYear
             
         }
         await agent.genapi.sendUserInputsFromUIGoods(inputsFromUIGoods);
@@ -285,6 +297,22 @@ export default function YourInputsPage() {
                                         ))}
                                 </TextField>
                                 
+                                <TextField
+                                    id="outlined-select-year"
+                                    color='secondary'
+                                    select
+                                    label="Reference year"
+                                    defaultValue="2024"
+                                    helperText="Please select the year to which the consumption is referred"
+                                    {...register('calculationYear')}
+                                    >
+                                    {years.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.value}
+                                        </MenuItem>
+                                        ))}
+                                </TextField>
+
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
                                     <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of electricity you used in the previous month? (measured in kwh)</Typography>
                                     <TextField
@@ -381,6 +409,22 @@ export default function YourInputsPage() {
                                     {...register('calculationMonth')}
                                     >
                                     {months.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.value}
+                                        </MenuItem>
+                                        ))}
+                                </TextField>
+
+                                <TextField
+                                    id="outlined-select-year"
+                                    color='secondary'
+                                    select
+                                    label="Reference year"
+                                    defaultValue="2024"
+                                    helperText="Please select the year to which the consumption is referred"
+                                    {...register('calculationYear')}
+                                    >
+                                    {years.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
                                             {option.value}
                                         </MenuItem>
@@ -679,6 +723,22 @@ export default function YourInputsPage() {
                                         </MenuItem>
                                         ))}
                                 </TextField>
+
+                                <TextField
+                                    id="outlined-select-year"
+                                    color='secondary'
+                                    select
+                                    label="Reference year"
+                                    defaultValue="2024"
+                                    helperText="Please select the year to which the consumption is referred"
+                                    {...register('calculationYear')}
+                                    >
+                                    {years.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.value}
+                                        </MenuItem>
+                                        ))}
+                                </TextField>
                                 
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
                                     <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on meat?(in pounds)</Typography>
@@ -782,6 +842,22 @@ export default function YourInputsPage() {
                                     {...register('calculationMonth')}
                                     >
                                     {months.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.value}
+                                        </MenuItem>
+                                        ))}
+                                </TextField>
+
+                                <TextField
+                                    id="outlined-select-year"
+                                    color='secondary'
+                                    select
+                                    label="Reference year"
+                                    defaultValue="2024"
+                                    helperText="Please select the year to which the consumption is referred"
+                                    {...register('calculationYear')}
+                                    >
+                                    {years.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
                                             {option.value}
                                         </MenuItem>

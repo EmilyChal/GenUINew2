@@ -7,5 +7,6 @@ export interface UserInputsFromUIFood{
     fruit:number | null,
     fish:number | null,
     milk:number | null,
-    calculationMonth:string | null
+    calculationMonth:string | null,
+    calculationYear:string | null
 }

@@ -7,5 +7,6 @@ export interface UserInputsFromUIEnergy{
     naturalGasInKwh: number | null,
     lpgInKwh: number | null,
     electricityInKwh: number | null,
-    calculationMonth:string | null
+    calculationMonth:string | null,
+    calculationYear:string | null
 }
