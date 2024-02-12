@@ -8,8 +8,8 @@ import {UserInputsFromUITransport} from "../domain/userInputsFromUITransport";
 import {UserInputsFromUIFood} from "../domain/userInputsFromUIFood";
 import {UserInputsFromUIGoods} from "../domain/userInputsFromUIGoods";
 
-const genApi = GEN_API_LOCAL;
-const authApi = AUTH_API_LOCAL;
+const genApi = GEN_API_PROD;
+const authApi = AUTH_API_PROD;
 
 const requests = {
     get: (url: string, params?: URLSearchParams) => axios.get(url, { params: params }),
