@@ -18,6 +18,7 @@ import {UserInputsFromUIEnergy} from "../domain/userInputsFromUIEnergy";
 import {UserInputsFromUITransport} from "../domain/userInputsFromUITransport";
 import {UserInputsFromUIFood} from "../domain/userInputsFromUIFood";
 import {UserInputsFromUIGoods} from "../domain/userInputsFromUIGoods";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 
@@ -66,6 +67,7 @@ function a11yProps(index: number) {
 export default function YourInputsPage() {
 
     const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [value, setValue] = React.useState(0);
     const { register, handleSubmit, formState: { isSubmitting, errors, isValid } }  = useForm({
         mode: 'onChange'
@@ -250,7 +252,7 @@ export default function YourInputsPage() {
     
         return (
             
-            <Box sx={{ bgcolor: 'background.white', width: 1800 }}>
+            <Box sx={{ bgcolor: 'background.white' }}>
                 
                 <AppBar position="static" color="secondary" enableColorOnDark>
                     <Tabs
@@ -258,8 +260,10 @@ export default function YourInputsPage() {
                         onChange={handleChange}
                         indicatorColor="primary"
                         textColor="inherit"
-                        variant="fullWidth"
+                        variant={isSmallScreen ? "scrollable" : "fullWidth"}
                         aria-label="full width tabs example"
+                        scrollButtons={isSmallScreen ? "auto" : false}
+
 
                         >
                         <Tab label="Home and Energy Consumption" {...a11yProps(0)} />
@@ -286,9 +290,12 @@ export default function YourInputsPage() {
                                     color='secondary'
                                     select
                                     label="Reference month"
-                                    defaultValue="January"
+                                    defaultValue="1"
                                     helperText="Please select the month to which the consumption is referred"
                                     {...register('calculationMonth')}
+                                    sx={{
+                                    marginBottom: '15px',
+                                        }}
                                     >
                                     {months.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
@@ -404,9 +411,12 @@ export default function YourInputsPage() {
                                     color='secondary'
                                     select
                                     label="Reference month"
-                                    defaultValue="January"
+                                    defaultValue="1"
                                     helperText="Please select the month to which the consumption is referred"
                                     {...register('calculationMonth')}
+                                    sx={{
+                                    marginBottom: '15px'
+                                }}
                                     >
                                     {months.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
@@ -713,9 +723,12 @@ export default function YourInputsPage() {
                                     color='secondary'
                                     select
                                     label="Reference month"
-                                    defaultValue="January"
+                                    defaultValue="1"
                                     helperText="Please select the month to which the consumption is referred"
                                     {...register('calculationMonth')}
+                                    sx={{
+                                    marginBottom: '15px',
+                                    }}
                                     >
                                     {months.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
@@ -837,9 +850,12 @@ export default function YourInputsPage() {
                                     color='secondary'
                                     select
                                     label="Reference month"
-                                    defaultValue="January"
+                                    defaultValue="1"
                                     helperText="Please select the month to which the consumption is referred"
                                     {...register('calculationMonth')}
+                                    sx={{
+                                    marginBottom: '15px',
+                                    }}
                                     >
                                     {months.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
