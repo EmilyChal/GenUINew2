@@ -1,88 +1,83 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import NativeSelect from '@mui/material/NativeSelect';
-import InputBase from '@mui/material/InputBase';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import {Container, Grid} from "@mui/material";
 
-const BootstrapInput = styled(InputBase)(({ theme }) => ({
-    'label + &': {
-        marginTop: theme.spacing(3),
-    },
-    '& .MuiInputBase-input': {
-        borderRadius: 4,
-        position: 'relative',
-        backgroundColor: theme.palette.background.paper,
-        border: '1px solid #ced4da',
-        fontSize: 16,
-        padding: '10px 26px 10px 12px',
-        transition: theme.transitions.create(['border-color', 'box-shadow']),
-        // Use the system font instead of the default Roboto font.
-        fontFamily: [
-            '-apple-system',
-            'BlinkMacSystemFont',
-            '"Segoe UI"',
-            'Roboto',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"',
-            ].join(','),
-        '&:focus': {
-            borderRadius: 4,
-            borderColor: '#80bdff',
-            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-        },
-    },
-}));
-
-export default function CustomizedSelects() {
-    const [age, setAge] = React.useState('');
-    const handleChange = (event: { target: { value: string } }) => {
-        setAge(event.target.value);
-    };
+export default function AlignItemsList() {
     return (
-        <div>
-          
-            <FormControl sx={{ m: 1 }} variant="standard">
-                <InputLabel id="demo-customized-select-label">Age</InputLabel>
-                <Select
-                    labelId="demo-customized-select-label"
-                    id="demo-customized-select"
-                    value={age}
-                    onChange={handleChange}
-                    input={<BootstrapInput />}
+        <Grid container spacing={0}>
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                </ListItemAvatar>
+                <ListItemText
+                    primary="Brunch this weekend?"
+                    secondary={
+            <React.Fragment>
+                <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
                     >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-            </FormControl>
-            <FormControl sx={{ m: 1 }} variant="standard">
-                <InputLabel htmlFor="demo-customized-select-native">Age</InputLabel>
-                <NativeSelect
-                    id="demo-customized-select-native"
-                    value={age}
-                    onChange={handleChange}
-                    input={<BootstrapInput />}
+                    Ali Connors
+                </Typography>
+                {" — I'll be in your neighborhood doing errands this…"}
+            </React.Fragment>
+          }
+                />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+            <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                    <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+                </ListItemAvatar>
+                <ListItemText
+                    primary="Summer BBQ"
+                    secondary={
+            <React.Fragment>
+                <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
                     >
-                    <option aria-label="None" value="" />
-                    <option value={10}>Ten</option>
-                    <option value={20}>Twenty</option>
-                    <option value={30}>Thirty</option>
-                </NativeSelect>
-            </FormControl>
-            <FormControl sx={{ m: 1 }} variant="standard">
-                <InputLabel htmlFor="demo-customized-textbox">Age</InputLabel>
-                <BootstrapInput id="demo-customized-textbox" />
-            </FormControl>
-        </div>
+                    to Scott, Alex, Jennifer
+                </Typography>
+                {" — Wish I could come, but I'm out of town this…"}
+            </React.Fragment>
+          }
+                />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+            <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                    <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+                </ListItemAvatar>
+                <ListItemText
+                    primary="Oui Oui"
+                    secondary={
+            <React.Fragment>
+                <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                    >
+                    Sandra Adams
+                </Typography>
+                {' — Do you have Paris recommendations? Have you ever…'}
+            </React.Fragment>
+          }
+                />
+            </ListItem>
+        </List>
+        </Grid>
         );
 }

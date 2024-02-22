@@ -27,6 +27,7 @@ export default function TipsAndSuggestions(){
                     bgcolor:'secondary.main',
                     color: 'whitesmoke',
                     textAlign: 'center',
+
                 }}
                 >
                 Try to use your bike or to walk to work instead of your car. Star with two times a week and gradually increase the times

@@ -8,8 +8,8 @@ import {UserInputsFromUITransport} from "../domain/userInputsFromUITransport";
 import {UserInputsFromUIFood} from "../domain/userInputsFromUIFood";
 import {UserInputsFromUIGoods} from "../domain/userInputsFromUIGoods";
 
-const genApi = GEN_API_PROD;
-const authApi = AUTH_API_PROD;
+const genApi = GEN_API_LOCAL;
+const authApi = AUTH_API_LOCAL;
 
 const requests = {
     get: (url: string, params?: URLSearchParams) => axios.get(url, { params: params }),
@@ -53,7 +53,17 @@ const genapi = {
     sendUserInputsFromUIGoods: async (inputsFromUIGoods:UserInputsFromUIGoods) => {
         let userInputsFromUIGoodsResult = await requests.post(`${genApi}/api/gen/userInfoGoods`, inputsFromUIGoods);
         return userInputsFromUIGoodsResult.data;
-    }
+    },
+
+    getTotalCarbonFootprintForCurrentMonth: async (userId:number) => {
+        let totalCarbonFootprintForCurrentMonth = await requests.get(`${genApi}/api/gen/carbonFootprintMonth?userId=${userId}`);
+        return totalCarbonFootprintForCurrentMonth.data;
+        },
+
+    getTotalCarbonFootprintForCurrentYear: async (userId:number) => {
+        let totalCarbonFootprintForCurrentYear = await requests.get(`${genApi}/api/gen/carbonFootprintYear?userId=${userId}`);
+        return totalCarbonFootprintForCurrentYear.data;
+        },
 }
 
 

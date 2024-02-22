@@ -20,11 +20,6 @@ import {UserInputsFromUIFood} from "../domain/userInputsFromUIFood";
 import {UserInputsFromUIGoods} from "../domain/userInputsFromUIGoods";
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-
-
-
-
-
 interface TabPanelProps {
     children?: React.ReactNode;
     dir?: string;
@@ -51,8 +46,6 @@ function TabPanel(props: TabPanelProps) {
         </div>
         );
 }
-
-
 
 function a11yProps(index: number) {
     return {
