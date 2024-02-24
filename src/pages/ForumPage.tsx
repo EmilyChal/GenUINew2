@@ -6,78 +6,78 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import {Container, Grid} from "@mui/material";
+import {Button, Container, Grid, Link, MenuItem} from "@mui/material";
+import {useEffect, useState } from 'react';
+import NewThreadModal from './NewThreadModal';
+import agent from "../services/Agent";
+import {ForumThread} from "../domain/forumThread";
+import LoadingComponent from '../components/LoadingComponent';
+import { useHistory } from 'react-router-dom';
 
 export default function AlignItemsList() {
+    const [openNewThreadModal, setNewThreadModal] = useState<boolean>(false);
+    const [isLoading, setLoading] = useState(true);
+    const [forumThreads, setForumThreads] = useState<ForumThread[]>([]);
+    const history = useHistory();
+
+    const openNewThreadModalFunction = () => {
+        setNewThreadModal(true);
+    }
+
+    useEffect(()=>{
+        setLoading(true);
+        getForumThreads();
+        setLoading(false);
+        },[])
+
+    const getForumThreads = async () => {
+        let forumThreads : ForumThread[] = await agent.genapi.getForumThreads();
+        setForumThreads(forumThreads)
+    }
+
+    if (isLoading)
+        return (<LoadingComponent message="" animation='MoonLoader'></LoadingComponent>)
     return (
+        <>
+        <Button variant="outlined" onClick={openNewThreadModalFunction}>New Thread</Button>
+
         <Grid container spacing={0}>
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-            <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                </ListItemAvatar>
-                <ListItemText
-                    primary="Brunch this weekend?"
-                    secondary={
-            <React.Fragment>
-                <Typography
-                    sx={{ display: 'inline' }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                    >
-                    Ali Connors
-                </Typography>
-                {" — I'll be in your neighborhood doing errands this…"}
-            </React.Fragment>
-          }
-                />
-            </ListItem>
-            <Divider variant="inset" component="li" />
-            <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                    <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-                </ListItemAvatar>
-                <ListItemText
-                    primary="Summer BBQ"
-                    secondary={
-            <React.Fragment>
-                <Typography
-                    sx={{ display: 'inline' }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                    >
-                    to Scott, Alex, Jennifer
-                </Typography>
-                {" — Wish I could come, but I'm out of town this…"}
-            </React.Fragment>
-          }
-                />
-            </ListItem>
-            <Divider variant="inset" component="li" />
-            <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                    <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-                </ListItemAvatar>
-                <ListItemText
-                    primary="Oui Oui"
-                    secondary={
-            <React.Fragment>
-                <Typography
-                    sx={{ display: 'inline' }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                    >
-                    Sandra Adams
-                </Typography>
-                {' — Do you have Paris recommendations? Have you ever…'}
-            </React.Fragment>
-          }
-                />
-            </ListItem>
-        </List>
+            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                {forumThreads.map((forumThread) => (
+                    <ListItem alignItems="flex-start" key={forumThread.forum_thread_id}>
+                        <Link
+                            component="button"
+                            variant="body2"
+                            onClick={() => {
+                            history.push({
+                                pathname: "/posts",
+                                state: forumThread.forum_thread_id,
+                            });
+                        }}
+                            >
+                            {forumThread.title}
+                        </Link>
+                        {/*<ListItemText*/}
+                        {/*    primary={forumThread.title}*/}
+                        {/*    secondary={*/}
+                        {/*    <React.Fragment>*/}
+                        {/*        <Typography*/}
+                        {/*            sx={{ display: 'inline' }}*/}
+                        {/*            component="span"*/}
+                        {/*            variant="body2"*/}
+                        {/*            color="text.primary"*/}
+                        {/*            >*/}
+                        {/*            Ali Connors*/}
+                        {/*        </Typography>*/}
+                        {/*        {" — I'll be in your neighborhood doing errands this…"}*/}
+                        {/*    </React.Fragment>}*/}
+                        {/*/>*/}
+                    </ListItem>
+                ))}
+                <Divider variant="inset" component="li" />
+            </List>
+            {openNewThreadModal && <NewThreadModal close={() => setNewThreadModal(false)} />}
         </Grid>
+        </>
         );
 }

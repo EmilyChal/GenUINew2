@@ -59,6 +59,7 @@ export default function LoginPage() {
             
             localStorage.setItem('accessToken', userLoginResult.token);
             localStorage.setItem('user_id', userLoginResult.userId);
+            localStorage.setItem('username', userLoginResult.name);
             history.push(location.state?.from?.pathname ? location.state?.from?.pathname : '/');
         } catch (error: any) {
             if (error && error.status && error.status === 401) {

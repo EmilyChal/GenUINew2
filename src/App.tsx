@@ -11,6 +11,7 @@ import YourInputsPage from './pages/YourInputsPage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import ForumPage from './pages/ForumPage';
 import TipsAndSuggestionsPage from './pages/TipsAndSuggestionsPage';
+import PostsPage from './pages/PostsPage';
 
 //import { useAppDispatch, useAppSelector } from './services/ConfigureStore';
 
@@ -30,6 +31,7 @@ function App() {
             <Switch>
               <Route path='/login' component={LoginPage} />
               <PrivateRoute exact path='/yourInputs' component={YourInputsPage}/>
+              <PrivateRoute exact path='/posts' component={PostsPage}/>
               <PrivateRoute exact path='/leaderboard' component={LeaderboardPage}/>
               <PrivateRoute exact path='/forum' component={ForumPage}/>
               <PrivateRoute exact path='/tipsandsuggestions' component={TipsAndSuggestionsPage}/>

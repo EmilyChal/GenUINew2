@@ -7,6 +7,8 @@ import {UserInputsFromUIEnergy} from "../domain/userInputsFromUIEnergy";
 import {UserInputsFromUITransport} from "../domain/userInputsFromUITransport";
 import {UserInputsFromUIFood} from "../domain/userInputsFromUIFood";
 import {UserInputsFromUIGoods} from "../domain/userInputsFromUIGoods";
+import {ForumThread} from "../domain/forumThread";
+import {PostDto} from "../domain/postDto";
 
 const genApi = GEN_API_LOCAL;
 const authApi = AUTH_API_LOCAL;
@@ -64,6 +66,24 @@ const genapi = {
         let totalCarbonFootprintForCurrentYear = await requests.get(`${genApi}/api/gen/carbonFootprintYear?userId=${userId}`);
         return totalCarbonFootprintForCurrentYear.data;
         },
+
+    createNewThread: async (userId: number, title: string) => {
+        await requests.post(`${genApi}/api/gen/thread?userId=${userId}&title=${title}`, {});
+    },
+
+    getForumThreads: async () => {
+        let forumThreads = await requests.get(`${genApi}/api/gen/threads`);
+        return forumThreads.data;
+    },
+
+    createNewPost: async (userId: number, postDto: PostDto) => {
+        await requests.post(`${genApi}/api/gen/post?userId=${userId}`, postDto);
+        },
+
+    getThreadPosts: async (forum_thread_id : number) => {
+        let forumThreads = await requests.get(`${genApi}/api/gen/posts?forum_thread_id=${forum_thread_id}`);
+        return forumThreads.data;
+    }
 }
 
 

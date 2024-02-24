@@ -11,7 +11,8 @@ export interface UserLogin {
 
 export interface UserLoginResult {
     token: string,
-    userId: string
+    userId: string,
+    name:string
 }
 
 export interface RegistrationDetails {
