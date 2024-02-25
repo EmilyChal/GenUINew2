@@ -9,9 +9,10 @@ import {UserInputsFromUIFood} from "../domain/userInputsFromUIFood";
 import {UserInputsFromUIGoods} from "../domain/userInputsFromUIGoods";
 import {ForumThread} from "../domain/forumThread";
 import {PostDto} from "../domain/postDto";
+import {CommentDto} from "../domain/commentDto";
 
-const genApi = GEN_API_LOCAL;
-const authApi = AUTH_API_LOCAL;
+const genApi = GEN_API_PROD;
+const authApi = AUTH_API_PROD;
 
 const requests = {
     get: (url: string, params?: URLSearchParams) => axios.get(url, { params: params }),
@@ -81,8 +82,17 @@ const genapi = {
         },
 
     getThreadPosts: async (forum_thread_id : number) => {
-        let forumThreads = await requests.get(`${genApi}/api/gen/posts?forum_thread_id=${forum_thread_id}`);
-        return forumThreads.data;
+        let threadPosts = await requests.get(`${genApi}/api/gen/posts?forum_thread_id=${forum_thread_id}`);
+        return threadPosts.data;
+    },
+
+    createNewComment: async (userId: number, commentDto: CommentDto) => {
+        await requests.post(`${genApi}/api/gen/comment?userId=${userId}`, commentDto);
+        },
+
+    getPostComments: async (post_id : number) => {
+        let postComments = await requests.get(`${genApi}/api/gen/comments?post_id=${post_id}`);
+        return postComments.data;
     }
 }
 
