@@ -1,5 +1,6 @@
 export interface UserInputsFromUITransport{
     user_id: number | null;
+    username : string;
     calculationMonth:string | null;
     calculationYear:string | null;
     travelledDistanceInMilesByBus : number | null;

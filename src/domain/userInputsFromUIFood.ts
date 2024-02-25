@@ -1,5 +1,6 @@
 export interface UserInputsFromUIFood{
     user_id: number | null;
+    username : string;
     preparedMeals: number | null,
     meat: number | null,
     oils:number | null,

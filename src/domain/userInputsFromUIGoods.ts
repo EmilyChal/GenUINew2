@@ -1,5 +1,6 @@
 export interface UserInputsFromUIGoods{
     user_id: number | null;
+    username : string;
     calculationMonth:string | null;
     calculationYear:string | null;
     restaurants: number | null,

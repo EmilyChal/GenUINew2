@@ -26,6 +26,7 @@ const modalStyle = {
 
 interface Props {
     post_id : number;
+    reloadCommentsAndPosts: () => void;
     close: () => void;
 }
 
@@ -35,7 +36,7 @@ const defaultValues = {
 
 
 
-export default function NewCommentModal({ close, post_id }: Props) {
+export default function NewCommentModal({ close, reloadCommentsAndPosts, post_id }: Props) {
     const { reset, trigger, control, getValues, setValue, register, handleSubmit, formState: { isSubmitting, errors, isValid } } = useForm({
     defaultValues: defaultValues,
     mode: 'all'
@@ -52,6 +53,7 @@ export default function NewCommentModal({ close, post_id }: Props) {
         };
         await agent.genapi.createNewComment(parseInt(localStorage.getItem('user_id')!), commentDto);
         reset();
+        reloadCommentsAndPosts();
     }
 
     const closeModal = () => {
@@ -66,15 +68,17 @@ export default function NewCommentModal({ close, post_id }: Props) {
                 <Box sx={{ display: 'flex', justifyContent: 'end', mt: 2 }}>
                     <HighlightOffIcon fontSize='large' onClick={closeModal} sx={{ cursor: 'pointer' }} />
                 </Box>
-                <Typography fontSize='30px' mb={3} textAlign='center' color='text.primary'>Please write your comment</Typography>
+                <Typography fontSize='30px' mb={3} textAlign='center' color='text.secondary'>Please write your comment</Typography>
                 <form key={1} onSubmit={handleSubmit(submitForm)}>
                     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: 2, padding: 0 }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', mt: 1 }}>
-                            <Typography fontSize='14px' sx={{ color: 'text.primary' }}>
+                            <Typography fontSize='14px' sx={{ color: 'text.secondary' }}>
                                 Comment
                             </Typography>
                             <TextField
                                 size='small'
+                                multiline
+                                rows={4}
                                 color='secondary'
                                 margin="none"
                                 hiddenLabel

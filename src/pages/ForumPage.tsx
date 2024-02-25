@@ -16,7 +16,7 @@ import { useHistory } from 'react-router-dom';
 
 export default function AlignItemsList() {
     const [openNewThreadModal, setNewThreadModal] = useState<boolean>(false);
-    const [isLoading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(false);
     const [forumThreads, setForumThreads] = useState<ForumThread[]>([]);
     const history = useHistory();
 
@@ -39,42 +39,21 @@ export default function AlignItemsList() {
         return (<LoadingComponent message="" animation='MoonLoader'></LoadingComponent>)
     return (
         <>
-        <Button variant="outlined" onClick={openNewThreadModalFunction}>New Thread</Button>
+        <Button variant="outlined" color='secondary' onClick={openNewThreadModalFunction}>New Thread</Button>
 
         <Grid container spacing={0}>
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 {forumThreads.map((forumThread) => (
-                    <ListItem alignItems="flex-start" key={forumThread.forum_thread_id}>
-                        <Link
-                            component="button"
-                            variant="body2"
-                            onClick={() => {
-                            history.push({
-                                pathname: "/posts",
-                                state: forumThread.forum_thread_id,
-                            });
-                        }}
-                            >
-                            {forumThread.title}
-                        </Link>
-                        {/*<ListItemText*/}
-                        {/*    primary={forumThread.title}*/}
-                        {/*    secondary={*/}
-                        {/*    <React.Fragment>*/}
-                        {/*        <Typography*/}
-                        {/*            sx={{ display: 'inline' }}*/}
-                        {/*            component="span"*/}
-                        {/*            variant="body2"*/}
-                        {/*            color="text.primary"*/}
-                        {/*            >*/}
-                        {/*            Ali Connors*/}
-                        {/*        </Typography>*/}
-                        {/*        {" — I'll be in your neighborhood doing errands this…"}*/}
-                        {/*    </React.Fragment>}*/}
-                        {/*/>*/}
-                    </ListItem>
+                    <>
+                    <Container sx={{ display: 'flex', flexDirection:'row', width:'100%', justifyContent:'left', mt: 2}}>
+                        <ListItem alignItems="flex-start" key={forumThread.forum_thread_id}>
+                            <Button variant="text" color='secondary' onClick={()=>history.push({pathname: "/posts",state: forumThread.forum_thread_id})}>{forumThread.title}</Button>
+                        </ListItem>
+                    </Container>
+                    <Divider />
+                    </>
                 ))}
-                <Divider variant="inset" component="li" />
+
             </List>
             {openNewThreadModal && <NewThreadModal close={() => setNewThreadModal(false)} />}
         </Grid>

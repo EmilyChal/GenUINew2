@@ -22,10 +22,11 @@ export default function AlignItemsList() {
     const [openNewPostModal, setOpenNewPostModal] = useState<boolean>(false);
     const [openNewCommentModal, setOpenNewCommentModal] = useState<boolean>(false);
     const [commentsPostId, setCommentsPostId] = useState<number>(0);
-    const [isLoading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(false);
     const [threadPosts, setThreadPosts] = useState<Post[]>([]);
     const [postComments, setPostComments] = useState<PostComment[]>([]);
     const location = useLocation();
+
 
     const openNewPostModalFunction = () => {
         setOpenNewPostModal(true);
@@ -38,14 +39,16 @@ export default function AlignItemsList() {
     }
 
     useEffect(()=>{
-        setThreadPosts([])
-        setPostComments([])
         setLoading(true);
-        fetchData();
+        const fetch = async () => await fetchData();
+        fetch();
         setLoading(false);
         },[])
 
+
     const fetchData = async () => {
+        setThreadPosts([])
+        setPostComments([])
         let threadPosts = await getThreadPosts();
         console.log(threadPosts)
         threadPosts.map((threadPost)=>{
@@ -71,13 +74,14 @@ export default function AlignItemsList() {
         return (<LoadingComponent message="" animation='MoonLoader'></LoadingComponent>)
     return (
         <>
-        <Button variant="outlined" onClick={openNewPostModalFunction}>New Post</Button>
+        <Button variant="outlined" color='secondary' onClick={openNewPostModalFunction}>New Post</Button>
 
         <Container sx={{ display: 'flex', flexDirection:'row', width:'100%', justifyContent:'center', mt: 2}}>
             <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                 {threadPosts.map((threadPost) => (
-                    <Container sx={{ display: 'flex', flexDirection:'row', width:'100%', justifyContent:'center', mt: 2, border:'1px solid black'}}>
-                    <ListItem alignItems="flex-start" key={threadPost.post_id}>
+                    <Container>
+                        <Box sx={{ display: 'flex', flexDirection:'row', width:'100%', justifyContent:'center', mt: 2, border:'1px solid black'}}>
+                        <ListItem alignItems="flex-start" key={threadPost.post_id}>
                         <Avatar sx={{marginRight:'10px', marginLeft:'-15px'}}>{threadPost.username[0]}</Avatar>
                         <ListItemText
                             primary={threadPost.username}
@@ -95,12 +99,12 @@ export default function AlignItemsList() {
                         />
                     </ListItem>
                         <Button sx={{display: 'flex', left:0, width: '80px', height: '30%', marginTop: '50px'}} variant="contained" color="secondary" onClick={()=>openNewCommentModalFunction(threadPost.post_id)}>Reply</Button>
-
+                    </Box>
+                        <Box sx={{marginLeft:'20px', fontStyle:'italic'}}>
                             {postComments.map((postComment : PostComment)=>(
                                 postComment.post_id==threadPost.post_id &&
-                                <>
-                                <Typography>{postComment.comment_id}</Typography>
-                                <Box>
+<>
+                                <Container sx={{ display: 'flex', flexDirection:'row', width:'100%', justifyContent:'center', mt: 2, border:'1px solid black'}}>
                                     <ListItem alignItems="flex-start" key={postComment.comment_id}>
                                         <Avatar sx={{marginRight:'10px', marginLeft:'-15px'}}>{threadPost.username[0]}</Avatar>
                                         <ListItemText
@@ -118,18 +122,18 @@ export default function AlignItemsList() {
                                         </React.Fragment>}
                                         />
                                     </ListItem>
-                                </Box>
+                                </Container>
                                 </>
                                 ))}
-
+                        </Box>
                     </Container>
 
 
                 ))}
                 
             </List>
-            {openNewPostModal && <NewPostModal close={() => setOpenNewPostModal(false)} forum_thread_id={location.state as number}/>}
-            {openNewCommentModal && <NewCommentModal close={() => setOpenNewCommentModal(false)} post_id={commentsPostId}/>}
+            {openNewPostModal && <NewPostModal close={() => setOpenNewPostModal(false)} reloadCommentsAndPosts={()=>fetchData()} forum_thread_id={location.state as number}/>}
+            {openNewCommentModal && <NewCommentModal close={() => setOpenNewCommentModal(false)} reloadCommentsAndPosts={()=>fetchData()} post_id={commentsPostId}/>}
         </Container>
         </>
         );

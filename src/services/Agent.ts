@@ -93,6 +93,21 @@ const genapi = {
     getPostComments: async (post_id : number) => {
         let postComments = await requests.get(`${genApi}/api/gen/comments?post_id=${post_id}`);
         return postComments.data;
+    },
+
+    getCurrentMonthLeaders: async () => {
+        let currentMonthLeaders = await requests.get(`${genApi}/api/gen/currentMonthLeaderboard`);
+        return currentMonthLeaders.data;
+    },
+
+    getCurrentYearLeaders: async () => {
+        let currentYearLeaders = await requests.get(`${genApi}/api/gen/currentYearLeaderboard`);
+        return currentYearLeaders.data;
+    },
+
+    getTotalCarbonFootprintPerMonth: async (userId:number) => {
+        let totalCarbonFootprintPerMonth = await requests.get(`${genApi}/api/gen/userFootprintPerMonth?userId=${userId}`);
+        return totalCarbonFootprintPerMonth.data;
     }
 }
 

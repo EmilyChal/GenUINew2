@@ -19,6 +19,7 @@ import {UserInputsFromUITransport} from "../domain/userInputsFromUITransport";
 import {UserInputsFromUIFood} from "../domain/userInputsFromUIFood";
 import {UserInputsFromUIGoods} from "../domain/userInputsFromUIGoods";
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -62,7 +63,7 @@ export default function YourInputsPage() {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [value, setValue] = React.useState(0);
-    const { register, handleSubmit, formState: { isSubmitting, errors, isValid } }  = useForm({
+    const { register, handleSubmit,reset, formState: { isSubmitting, errors, isValid } }  = useForm({
         mode: 'onChange'
     })
     const [carSize, setCarSize] = React.useState('');
@@ -95,7 +96,7 @@ export default function YourInputsPage() {
         {value:'2026'}
     ]
 
-    
+    const { enqueueSnackbar } = useSnackbar();
     
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -108,111 +109,142 @@ export default function YourInputsPage() {
     
     
     async function submitForm1(data: FieldValues) {
-        const {burningOilInKwh, woodLogsInTonnes, propaneInKwh, naturalGasInKwh, lpgInKwh, electricityInKwh,calculationMonth, calculationYear} = data;
-        
-        
-        let inputsFromUIEnergy:UserInputsFromUIEnergy = {
-            user_id: parseInt(localStorage.getItem('user_id')!),
-            burningOilInKwh: parseInt(burningOilInKwh)!,
-            woodLogsInTonnes: parseInt(woodLogsInTonnes)!,
-            propaneInKwh: parseInt(propaneInKwh)!,
-            naturalGasInKwh: parseInt(naturalGasInKwh)!,
-            lpgInKwh: parseInt(lpgInKwh)!,
-            electricityInKwh: parseInt(electricityInKwh)!,
-            calculationMonth:calculationMonth,
-            calculationYear:calculationYear
+        try{
+            const {burningOilInKwh, woodLogsInTonnes, propaneInKwh, naturalGasInKwh, lpgInKwh, electricityInKwh,calculationMonth, calculationYear} = data;
+            let inputsFromUIEnergy:UserInputsFromUIEnergy = {
+                user_id: parseInt(localStorage.getItem('user_id')!),
+                username: localStorage.getItem('username')!,
+                burningOilInKwh: parseInt(burningOilInKwh)!,
+                woodLogsInTonnes: parseInt(woodLogsInTonnes)!,
+                propaneInKwh: parseInt(propaneInKwh)!,
+                naturalGasInKwh: parseInt(naturalGasInKwh)!,
+                lpgInKwh: parseInt(lpgInKwh)!,
+                electricityInKwh: parseInt(electricityInKwh)!,
+                calculationMonth:calculationMonth,
+                calculationYear:calculationYear
+            }
+            await agent.genapi.sendUserInputsFromUIEnergy(inputsFromUIEnergy);
+            enqueueSnackbar('Inputs submitted successfully!', { variant: 'success' });
+            reset();
+
         }
-        console.log(inputsFromUIEnergy);
-        await agent.genapi.sendUserInputsFromUIEnergy(inputsFromUIEnergy);
-        console.log(inputsFromUIEnergy);
-   
+        catch (error: any) {
+            enqueueSnackbar('Inputs failed to submit', { variant: 'error' });
+        }
     }
         
     async function submitForm2(data: FieldValues) {
-        const {travelledDistanceInMilesByBus,travelledDistanceInMilesByCar,
-            travelledDistanceInMilesByFerry,travelledDistanceInMilesInFlight,
-            travelledDistanceInMilesByMotorbike,travelledDistanceInMilesByRail,travelledDistanceInMilesByTaxi,calculationMonth,
-            calculationYear} = data;
-        
-        console.log(data);
-        let inputsFromUITransport:UserInputsFromUITransport = {
-            user_id: parseInt(localStorage.getItem('user_id')!),
-            travelledDistanceInMilesByBus:parseInt(travelledDistanceInMilesByBus)! ,
-            carSize: carSize,
-            fuelType: fuelType,
-            travelledDistanceInMilesByCar: parseInt(travelledDistanceInMilesByCar)!,
-            typeOfPassengerOnFerry: typeOfPassengerOnFerry,
-            travelledDistanceInMilesByFerry: parseInt(travelledDistanceInMilesByFerry)!,
-            seatclass: seatclass,
-            flightCategory: flightCategory,
-            travelledDistanceInMilesInFlight: parseInt(travelledDistanceInMilesInFlight)!,
-            motorbikeSize: motorbikeSize,
-            travelledDistanceInMilesByMotorbike: parseInt(travelledDistanceInMilesByMotorbike)!,
-            railType: railType,
-            travelledDistanceInMilesByRail: parseInt(travelledDistanceInMilesByRail)!,
-            taxiType: taxiType,
-            travelledDistanceInMilesByTaxi: parseInt(travelledDistanceInMilesByTaxi)!,
-            calculationMonth:calculationMonth,
-            calculationYear:calculationYear
-            
+        try{
+            const {travelledDistanceInMilesByBus,travelledDistanceInMilesByCar,
+                travelledDistanceInMilesByFerry,travelledDistanceInMilesInFlight,
+                travelledDistanceInMilesByMotorbike,travelledDistanceInMilesByRail,travelledDistanceInMilesByTaxi,calculationMonth,
+                calculationYear} = data;
+
+            console.log(data);
+            let inputsFromUITransport:UserInputsFromUITransport = {
+                user_id: parseInt(localStorage.getItem('user_id')!),
+                username: localStorage.getItem('username')!,
+                travelledDistanceInMilesByBus:parseInt(travelledDistanceInMilesByBus)! ,
+                carSize: carSize,
+                fuelType: fuelType,
+                travelledDistanceInMilesByCar: parseInt(travelledDistanceInMilesByCar)!,
+                typeOfPassengerOnFerry: typeOfPassengerOnFerry,
+                travelledDistanceInMilesByFerry: parseInt(travelledDistanceInMilesByFerry)!,
+                seatclass: seatclass,
+                flightCategory: flightCategory,
+                travelledDistanceInMilesInFlight: parseInt(travelledDistanceInMilesInFlight)!,
+                motorbikeSize: motorbikeSize,
+                travelledDistanceInMilesByMotorbike: parseInt(travelledDistanceInMilesByMotorbike)!,
+                railType: railType,
+                travelledDistanceInMilesByRail: parseInt(travelledDistanceInMilesByRail)!,
+                taxiType: taxiType,
+                travelledDistanceInMilesByTaxi: parseInt(travelledDistanceInMilesByTaxi)!,
+                calculationMonth:calculationMonth,
+                calculationYear:calculationYear
+
+            }
+            console.log(inputsFromUITransport)
+            await agent.genapi.sendUserInputsFromUITransport(inputsFromUITransport);
+            enqueueSnackbar('Inputs submitted successfully!', { variant: 'success' });
+            reset();
+
         }
-        console.log(inputsFromUITransport)
-        await agent.genapi.sendUserInputsFromUITransport(inputsFromUITransport);
+        catch (error: any) {
+            enqueueSnackbar('Inputs failed to submit', { variant: 'error' });
+        }
+
     }
     
     async function submitForm3(data: FieldValues) {
-        const {preparedMeals,meat,oils,bread,fruit,fish,milk,calculationMonth,calculationYear} = data;
-        
-        console.log(data);
-        let inputsFromUIFood:UserInputsFromUIFood = {
-            user_id:parseInt( localStorage.getItem('user_id')!),
-            preparedMeals:parseInt(preparedMeals)!,
-            meat:parseInt(meat)!,
-            oils:parseInt(oils)!,
-            bread:parseInt(bread)!,
-            fruit:parseInt(fruit)!,
-            fish:parseInt(fish)!,
-            milk:parseInt(milk)!,
-            calculationMonth:calculationMonth,
-            calculationYear:calculationYear
-            
+        try{
+            const {preparedMeals,meat,oils,bread,fruit,fish,milk,calculationMonth,calculationYear} = data;
+
+            console.log(data);
+            let inputsFromUIFood:UserInputsFromUIFood = {
+                user_id:parseInt( localStorage.getItem('user_id')!),
+                username: localStorage.getItem('username')!,
+                preparedMeals:parseInt(preparedMeals)!,
+                meat:parseInt(meat)!,
+                oils:parseInt(oils)!,
+                bread:parseInt(bread)!,
+                fruit:parseInt(fruit)!,
+                fish:parseInt(fish)!,
+                milk:parseInt(milk)!,
+                calculationMonth:calculationMonth,
+                calculationYear:calculationYear
+
+            }
+            await agent.genapi.sendUserInputsFromUIFood(inputsFromUIFood);
+            enqueueSnackbar('Inputs submitted successfully!', { variant: 'success' });
+            reset();
+
         }
-        await agent.genapi.sendUserInputsFromUIFood(inputsFromUIFood);
+        catch (error: any) {
+            enqueueSnackbar('Inputs failed to submit', { variant: 'error' });
+        }
     }
     
     async function submitForm4(data: FieldValues) {
-        const {restaurants,hotels,pharmaceutical,repairElectricAppliances,
-            electricAppliances,electronicalEquipment,education,hairdressing,books, sportEquipment, hobbies,hospital,medical,utensils,
-            repairFurniture,furniture,footwear,clothingAccessories,clothes,calculationMonth,calculationYear} = data;
-        
-        console.log(data);
-        let inputsFromUIGoods: UserInputsFromUIGoods = {
-            user_id: parseInt(localStorage.getItem('user_id')!),
-            restaurants:parseInt(restaurants)!,
-            hotels:parseInt(hotels)!,
-            pharmaceutical:parseInt(pharmaceutical)!,
-            repairElectricAppliances:parseInt(repairElectricAppliances)!,
-            electricAppliances:parseInt(electricAppliances)!,
-            electronicalEquipment:parseInt(electronicalEquipment)!,
-            education:parseInt(education)!,
-            hairdressing:parseInt(hairdressing)!,
-            books:parseInt(books)!,
-            sportEquipment:parseInt(sportEquipment)!,
-            hobbies:parseInt(hobbies)!,
-            hospital:parseInt(hospital)!,
-            medical:parseInt(medical)!,
-            utensils:parseInt(utensils)!,
-            repairFurniture:parseInt(repairFurniture)!,
-            furniture:parseInt(furniture)!,
-            footwear:parseInt(footwear)!,
-            clothingAccessories:parseInt(clothingAccessories)!,
-            clothes:parseInt(clothes)!,
-            calculationMonth:calculationMonth,
-            calculationYear:calculationYear
-            
+        try{
+            const {restaurants,hotels,pharmaceutical,repairElectricAppliances,
+                electricAppliances,electronicalEquipment,education,hairdressing,books, sportEquipment, hobbies,hospital,medical,utensils,
+                repairFurniture,furniture,footwear,clothingAccessories,clothes,calculationMonth,calculationYear} = data;
+
+            console.log(data);
+            let inputsFromUIGoods: UserInputsFromUIGoods = {
+                user_id: parseInt(localStorage.getItem('user_id')!),
+                username: localStorage.getItem('username')!,
+                restaurants:parseInt(restaurants)!,
+                hotels:parseInt(hotels)!,
+                pharmaceutical:parseInt(pharmaceutical)!,
+                repairElectricAppliances:parseInt(repairElectricAppliances)!,
+                electricAppliances:parseInt(electricAppliances)!,
+                electronicalEquipment:parseInt(electronicalEquipment)!,
+                education:parseInt(education)!,
+                hairdressing:parseInt(hairdressing)!,
+                books:parseInt(books)!,
+                sportEquipment:parseInt(sportEquipment)!,
+                hobbies:parseInt(hobbies)!,
+                hospital:parseInt(hospital)!,
+                medical:parseInt(medical)!,
+                utensils:parseInt(utensils)!,
+                repairFurniture:parseInt(repairFurniture)!,
+                furniture:parseInt(furniture)!,
+                footwear:parseInt(footwear)!,
+                clothingAccessories:parseInt(clothingAccessories)!,
+                clothes:parseInt(clothes)!,
+                calculationMonth:calculationMonth,
+                calculationYear:calculationYear
+
+            }
+            await agent.genapi.sendUserInputsFromUIGoods(inputsFromUIGoods);
+            enqueueSnackbar('Inputs submitted successfully!', { variant: 'success' });
+            reset();
+
         }
-        await agent.genapi.sendUserInputsFromUIGoods(inputsFromUIGoods);
-        
+        catch (error: any) {
+            enqueueSnackbar('Inputs failed to submit', { variant: 'error' });
+        }
     }
     
     
@@ -320,6 +352,7 @@ export default function YourInputsPage() {
                                         fullWidth
                                         disabled={isSubmitting}
                                         size='small'
+                                        type="number"
                                         {...register('electricityInKwh')}
                                     />
                                 </Box>
@@ -331,6 +364,7 @@ export default function YourInputsPage() {
                                         fullWidth
                                         disabled={isSubmitting}
                                         size='small'
+                                        type="number"
                                         {...register('lpgInKwh')}
                                     />
                                 </Box>
@@ -341,6 +375,7 @@ export default function YourInputsPage() {
                                         fullWidth
                                         disabled={isSubmitting}
                                         size='small'
+                                        type="number"
                                         {...register('naturalGasInKwh')}
                                     />
                                 </Box>
@@ -351,6 +386,7 @@ export default function YourInputsPage() {
                                         fullWidth
                                         disabled={isSubmitting}
                                         size='small'
+                                        type="number"
                                         {...register('propaneInKwh')}
                                     />
                                 </Box>
@@ -361,6 +397,7 @@ export default function YourInputsPage() {
                                         fullWidth
                                         disabled={isSubmitting}
                                         size='small'
+                                        type="number"
                                         {...register('burningOilInKwh')}
                                     />
                                 </Box>
@@ -371,6 +408,7 @@ export default function YourInputsPage() {
                                         fullWidth
                                         disabled={isSubmitting}
                                         size='small'
+                                        type="number"
                                         {...register('woodLogsInTonnes')}
                                     />
                                 </Box>
@@ -482,6 +520,7 @@ export default function YourInputsPage() {
                                             color='secondary'
                                             fullWidth
                                             disabled={isSubmitting}
+                                            type="number"
                                             size='small'
                                             {...register('travelledDistanceInMilesByCar')}
                                             
@@ -517,6 +556,7 @@ export default function YourInputsPage() {
                                                 color='secondary'
                                                 fullWidth
                                                 disabled={isSubmitting}
+                                                type="number"
                                                 size='small'
                                                 {...register('travelledDistanceInMilesByMotorbike')}
                                             />
@@ -567,6 +607,7 @@ export default function YourInputsPage() {
                                                 <TextField
                                                     color='secondary'
                                                     fullWidth
+                                                    type="number"
                                                     disabled={isSubmitting}
                                                     size='small'
                                                     {...register('travelledDistanceInMilesInFlight')}
@@ -600,6 +641,7 @@ export default function YourInputsPage() {
                                                 color='secondary'
                                                 fullWidth
                                                 disabled={isSubmitting}
+                                                type="number"
                                                 size='small'
                                                 {...register('travelledDistanceInMilesByFerry')}
                                             />
@@ -634,6 +676,7 @@ export default function YourInputsPage() {
                                                 color='secondary'
                                                 fullWidth
                                                 disabled={isSubmitting}
+                                                type="number"
                                                 size='small'
                                                 {...register('travelledDistanceInMilesByRail')}
                                             />
@@ -665,6 +708,7 @@ export default function YourInputsPage() {
                                                 <TextField
                                                     color='secondary'
                                                     fullWidth
+                                                    type="number"
                                                     disabled={isSubmitting}
                                                     size='small'
                                                     {...register('travelledDistanceInMilesByTaxi')}
@@ -681,6 +725,7 @@ export default function YourInputsPage() {
                                             <TextField
                                                 color='secondary'
                                                 fullWidth
+                                                type="number"
                                                 disabled={isSubmitting}
                                                 size='small'
                                                 {...register('travelledDistanceInMilesByBus')}
@@ -693,7 +738,7 @@ export default function YourInputsPage() {
                                     loading={isSubmitting}
                                     type="submit"
                                     variant="contained" color='secondary'
-                                    sx={{display: 'flex', align: 'center', mt: 3, mb: 2,  width: '35%'}}
+                                    sx={{display: 'flex', align: 'center', mt: 3, mb: 2,  width: '100%'}}
                                     >
                                     Submit 
                                 </LoadingButton>
@@ -751,6 +796,7 @@ export default function YourInputsPage() {
                                     <TextField
                                         color='secondary'
                                         fullWidth
+                                        type="number"
                                         disabled={isSubmitting}
                                         size='small'
                                         {...register('meat')}
@@ -762,6 +808,7 @@ export default function YourInputsPage() {
                                     <TextField
                                         color='secondary'
                                         fullWidth
+                                        type="number"
                                         disabled={isSubmitting}
                                         size='small'
                                         {...register('fish')}
@@ -773,6 +820,7 @@ export default function YourInputsPage() {
                                         color='secondary'
                                         fullWidth
                                         disabled={isSubmitting}
+                                        type="number"
                                         size='small'
                                         {...register('fruit')}
                                     />
@@ -784,6 +832,7 @@ export default function YourInputsPage() {
                                         fullWidth
                                         disabled={isSubmitting}
                                         size='small'
+                                        type="number"
                                         {...register('bread')}
                                     />
                                 </Box>
@@ -793,6 +842,7 @@ export default function YourInputsPage() {
                                         color='secondary'
                                         fullWidth
                                         disabled={isSubmitting}
+                                        type="number"
                                         size='small'
                                         {...register('milk')}
                                     />
@@ -803,6 +853,7 @@ export default function YourInputsPage() {
                                         color='secondary'
                                         fullWidth
                                         disabled={isSubmitting}
+                                        type="number"
                                         size='small'
                                         {...register('oils')}
                                     />
@@ -812,6 +863,7 @@ export default function YourInputsPage() {
                                     <TextField
                                         color='secondary'
                                         fullWidth
+                                        type="number"
                                         disabled={isSubmitting}
                                         size='small'
                                         {...register('preparedMeals')}
@@ -879,6 +931,7 @@ export default function YourInputsPage() {
                                         fullWidth
                                         disabled={isSubmitting}
                                         size='small'
+                                        type="number"
                                         {...register('clothes')}
                                     />
                                 </Box>
@@ -888,6 +941,7 @@ export default function YourInputsPage() {
                                         color='secondary'
                                         fullWidth
                                         disabled={isSubmitting}
+                                        type="number"
                                         size='small'
                                         {...register('clothingAccessories')}
                                     />
@@ -898,6 +952,7 @@ export default function YourInputsPage() {
                                         color='secondary'
                                         fullWidth
                                         disabled={isSubmitting}
+                                        type="number"
                                         size='small'
                                         {...register('footwear')}
                                     />
@@ -908,6 +963,7 @@ export default function YourInputsPage() {
                                         color='secondary'
                                         fullWidth
                                         disabled={isSubmitting}
+                                        type="number"
                                         size='small'
                                         {...register('furniture')}
                                     />
@@ -919,6 +975,7 @@ export default function YourInputsPage() {
                                         fullWidth
                                         disabled={isSubmitting}
                                         size='small'
+                                        type="number"
                                         {...register('repairFurniture')}
                                     />
                                 </Box>
@@ -927,6 +984,7 @@ export default function YourInputsPage() {
                                     <TextField
                                         color='secondary'
                                         fullWidth
+                                        type="number"
                                         disabled={isSubmitting}
                                         size='small'
                                         {...register('electricAppliances')}
@@ -938,6 +996,7 @@ export default function YourInputsPage() {
                                         color='secondary'
                                         fullWidth
                                         disabled={isSubmitting}
+                                        type="number"
                                         size='small'
                                         {...register('repairElectricAppliances')}
                                     />
@@ -948,6 +1007,7 @@ export default function YourInputsPage() {
                                         color='secondary'
                                         fullWidth
                                         disabled={isSubmitting}
+                                        type="number"
                                         size='small'
                                         {...register('utensils')}
                                     />
@@ -958,6 +1018,7 @@ export default function YourInputsPage() {
                                         color='secondary'
                                         fullWidth
                                         disabled={isSubmitting}
+                                        type="number"
                                         size='small'
                                         {...register('pharmaceutical')}
                                     />
@@ -969,6 +1030,7 @@ export default function YourInputsPage() {
                                         fullWidth
                                         disabled={isSubmitting}
                                         size='small'
+                                        type="number"
                                         {...register('medical')}
                                     />
                                 </Box>
@@ -976,6 +1038,7 @@ export default function YourInputsPage() {
                                     <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on hospital services?(in pounds)</Typography>
                                     <TextField
                                         color='secondary'
+                                        type="number"
                                         fullWidth
                                         disabled={isSubmitting}
                                         size='small'
@@ -987,6 +1050,7 @@ export default function YourInputsPage() {
                                     <TextField
                                         color='secondary'
                                         fullWidth
+                                        type="number"
                                         disabled={isSubmitting}
                                         size='small'
                                         {...register('hobbies')}
@@ -997,6 +1061,7 @@ export default function YourInputsPage() {
                                     <TextField
                                         color='secondary'
                                         fullWidth
+                                        type="number"
                                         disabled={isSubmitting}
                                         size='small'
                                         {...register('electronicalEquipment')}
@@ -1007,6 +1072,7 @@ export default function YourInputsPage() {
                                     <TextField
                                         color='secondary'
                                         fullWidth
+                                        type="number"
                                         disabled={isSubmitting}
                                         size='small'
                                         {...register('sportEquipment')}
@@ -1017,6 +1083,7 @@ export default function YourInputsPage() {
                                     <TextField
                                         color='secondary'
                                         fullWidth
+                                        type="number"
                                         disabled={isSubmitting}
                                         size='small'
                                         {...register('books')}
@@ -1027,6 +1094,7 @@ export default function YourInputsPage() {
                                     <TextField
                                         color='secondary'
                                         fullWidth
+                                        type="number"
                                         disabled={isSubmitting}
                                         size='small'
                                         {...register('hotels')}
@@ -1037,6 +1105,7 @@ export default function YourInputsPage() {
                                     <TextField
                                         color='secondary'
                                         fullWidth
+                                        type="number"
                                         disabled={isSubmitting}
                                         size='small'
                                         {...register('restaurants')}
@@ -1048,6 +1117,7 @@ export default function YourInputsPage() {
                                         color='secondary'
                                         fullWidth
                                         disabled={isSubmitting}
+                                        type="number"
                                         size='small'
                                         {...register('hairdressing')}
                                     />
@@ -1057,6 +1127,7 @@ export default function YourInputsPage() {
                                     <TextField
                                         color='secondary'
                                         fullWidth
+                                        type="number"
                                         disabled={isSubmitting}
                                         size='small'
                                         {...register('education')}
