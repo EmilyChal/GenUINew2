@@ -116,7 +116,7 @@ export default function HomePage() {
     const chartSetting = {
         xAxis: [
             {
-                label: 'rainfall (mm)',
+                label: 'Carbon emissions per month (kg CO2e)',
             },
             ],
         width: 500,
@@ -199,7 +199,7 @@ export default function HomePage() {
         </Container>
         <Container sx={{ display: 'flex', flexDirection: 'row', mt: '80px' }}>
         <PieChart series={[{ data, innerRadius: 80 }]} {...size}>
-            <PieCenterLabel>{currentMonthFootprint.carbonFootprintTotal}</PieCenterLabel>
+            <PieCenterLabel>{currentMonthFootprint.carbonFootprintTotal} kg co2e</PieCenterLabel>
         </PieChart>
         </Container>
         <Container sx={{ display: 'flex', flexDirection: 'row', mt: '80px' }}>

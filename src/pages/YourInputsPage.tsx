@@ -491,9 +491,9 @@ export default function YourInputsPage() {
                                                 <em>None</em>
                                             </MenuItem>
                                             <MenuItem value="Average">Average(Unknown engine size)</MenuItem>
-                                            <MenuItem value="Small Car">Small Car(Up to 1.7 litre engine)</MenuItem>
-                                            <MenuItem value="Medium Car">Medium Car(From 1.7-2.0 litre engine)</MenuItem>
-                                            <MenuItem value="Large Car">Large Car(Over 2.0 litre engine)</MenuItem>
+                                            <MenuItem value="Small">Small Car(Up to 1.7 litre engine)</MenuItem>
+                                            <MenuItem value="Medium">Medium Car(From 1.7-2.0 litre engine)</MenuItem>
+                                            <MenuItem value="Large">Large Car(Over 2.0 litre engine)</MenuItem>
                                         </Select>
                                     </FormControl>
                                     <FormControl variant="standard" sx={{ m: 4, minWidth: 120 }}>
@@ -510,8 +510,8 @@ export default function YourInputsPage() {
                                             <MenuItem value="Diesel">Diesel</MenuItem>
                                             <MenuItem value="Petrol">Petrol</MenuItem>
                                             <MenuItem value="Hyprid">Hyprid</MenuItem>
-                                            <MenuItem value="Plug-in Hybrid Electric Vehicle">Plug-in hybrid electric car</MenuItem>
-                                            <MenuItem value="Hyprid">Unknown</MenuItem>
+                                            <MenuItem value="Plug-in Hybrid Electric">Plug-in hybrid electric car</MenuItem>
+                                            <MenuItem value="Unknown">Unknown</MenuItem>
                                         </Select>
                                     </FormControl>
                                     <Box sx={{ display: 'flex', flexDirection: 'row', mt: 5 }}>
@@ -599,7 +599,7 @@ export default function YourInputsPage() {
                                                     <MenuItem value="Domestic">Domestic(between UK airports)</MenuItem>
                                                     <MenuItem value="Short-haul">Short-haul (up to 2.299 mi)</MenuItem>
                                                     <MenuItem value="Long-haul">Long-haul (over 2.299 mi)</MenuItem>
-                                                    <MenuItem value="International">International (from/to non UK)</MenuItem>
+                                                    <MenuItem value="International to from non-UK">International (from/to non UK)</MenuItem>
                                                 </Select>
                                             </FormControl>
                                             <Box sx={{ display: 'flex', flexDirection: 'row', mt: 8 }}>
