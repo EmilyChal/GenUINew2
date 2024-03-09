@@ -34,6 +34,9 @@ export default function AlignItemsList() {
         let forumThreads : ForumThread[] = await agent.genapi.getForumThreads();
         setForumThreads(forumThreads)
     }
+    const fetchData = async () => {
+        getForumThreads()
+    }
 
     if (isLoading)
         return (<LoadingComponent message="" animation='MoonLoader'></LoadingComponent>)
@@ -55,7 +58,8 @@ export default function AlignItemsList() {
                 ))}
 
             </List>
-            {openNewThreadModal && <NewThreadModal close={() => setNewThreadModal(false)} />}
+            {openNewThreadModal && <NewThreadModal reloadThreads={()=>fetchData()}
+                close={() => setNewThreadModal(false)} />}
         </Grid>
         </>
         );

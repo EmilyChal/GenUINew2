@@ -24,7 +24,9 @@ const modalStyle = {
 
 interface Props {
     close: () => void;
+    reloadThreads: () => void;
 }
+
 
 const defaultValues = {
     threadTitle:''
@@ -32,7 +34,7 @@ const defaultValues = {
 
 
 
-export default function NewThreadModal({ close }: Props) {
+export default function NewThreadModal({ close, reloadThreads }: Props) {
     const { reset, trigger, control, getValues, setValue, register, handleSubmit, formState: { isSubmitting, errors, isValid } } = useForm({
     defaultValues: defaultValues,
     mode: 'all'
@@ -43,7 +45,8 @@ export default function NewThreadModal({ close }: Props) {
         console.log(threadTitle)
         await agent.genapi.createNewThread(parseInt(localStorage.getItem('user_id')!), threadTitle);
         reset();
-        history.push('/forum')
+        reloadThreads();
+        
 
     }
 
