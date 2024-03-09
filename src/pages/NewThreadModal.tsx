@@ -4,6 +4,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import React from "react";
 import { LoadingButton } from "@mui/lab";
 import agent from "../services/Agent";
+import { useHistory } from 'react-router-dom';
 
 
 const modalStyle = {
@@ -36,12 +37,14 @@ export default function NewThreadModal({ close }: Props) {
     defaultValues: defaultValues,
     mode: 'all'
     })
-
+    const history = useHistory();
     const submitForm = async (data: FieldValues) => {
         const { threadTitle } = data
         console.log(threadTitle)
         await agent.genapi.createNewThread(parseInt(localStorage.getItem('user_id')!), threadTitle);
         reset();
+        history.push('/forum')
+
     }
 
     const closeModal = () => {
