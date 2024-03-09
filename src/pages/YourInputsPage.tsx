@@ -346,7 +346,7 @@ export default function YourInputsPage() {
                                 </TextField>
 
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of electricity you used in the previous month? (measured in kwh)</Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of electricity you used in current month? (measured in kwh)</Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth
@@ -358,7 +358,7 @@ export default function YourInputsPage() {
                                 </Box>
 
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of LPG you used in the previous month? (measured in kwh)</Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of LPG you used in the current month? (measured in kwh)</Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth
@@ -369,7 +369,7 @@ export default function YourInputsPage() {
                                     />
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of Natural gas you used in the previous month? (measured in kwh)</Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of Natural gas you used in the current month? (measured in kwh)</Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth
@@ -380,7 +380,7 @@ export default function YourInputsPage() {
                                     />
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of Propane you used in the previous month? (measured in kwh)</Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of Propane you used in the current month? (measured in kwh)</Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth
@@ -391,7 +391,7 @@ export default function YourInputsPage() {
                                     />
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of Burning oil you used in the previous month? (measured in kwh)</Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of Burning oil you used in the current month? (measured in kwh)</Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth
@@ -402,7 +402,7 @@ export default function YourInputsPage() {
                                     />
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of Wood logs you used in the previous month? (measured in tonnes) </Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>What was the total amount of Wood logs you used in the current month? (measured in tonnes) </Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth
@@ -792,7 +792,7 @@ export default function YourInputsPage() {
                                 </TextField>
                                 
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on meat?(in pounds)</Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend this month on meat?(in pounds)</Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth
@@ -804,7 +804,7 @@ export default function YourInputsPage() {
                                     />
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on fish and seafood?(in pounds)</Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on fish and seafood this month?(in pounds)</Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth
@@ -815,7 +815,7 @@ export default function YourInputsPage() {
                                     />
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on fruits and vegetables?(in pounds)</Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on fruits and vegetables this month?(in pounds)</Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth
@@ -826,7 +826,7 @@ export default function YourInputsPage() {
                                     />
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on bread and cereals?(in pounds)</Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on bread and cereals this month?(in pounds)</Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth
@@ -837,7 +837,7 @@ export default function YourInputsPage() {
                                     />
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on milk, cheese and eggs?(in pounds)</Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on milk, cheese and eggs this month?(in pounds)</Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth
@@ -848,7 +848,7 @@ export default function YourInputsPage() {
                                     />
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on oils and fats?(in pounds)</Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on oils and fats this month?(in pounds)</Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth
@@ -859,7 +859,7 @@ export default function YourInputsPage() {
                                     />
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', mt: 2 }}>
-                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on food products n.e.c, like prepared meals,chocolate, honey, and confectionary?(in pounds)</Typography>
+                                    <Typography color='#808080' ml={1} letterSpacing={1} fontWeight='bold' variant='body2'>How much money did you spend on food products n.e.c, like prepared meals,chocolate etc this month?(in pounds)</Typography>
                                     <TextField
                                         color='secondary'
                                         fullWidth

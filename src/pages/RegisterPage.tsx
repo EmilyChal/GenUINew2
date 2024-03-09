@@ -46,6 +46,10 @@ export default function RegisterPage() {
             console.log(registrationDetails)
             let result = await agent.account.registerUser(registrationDetails)
             setRegisterSuccess(true);
+            setTimeout(() => {
+                history.push('/login');
+                }, 2000);
+
         }
         catch (err) {
             console.log('Error')

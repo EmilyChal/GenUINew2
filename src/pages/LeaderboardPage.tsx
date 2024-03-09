@@ -11,6 +11,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import LoadingComponent from "../components/LoadingComponent";
 
+
+
+
 export default function UsersRanking(){
     const [isLoading, setLoading] = useState(true);
     const [userInfoAndFootprintMonth, setUserInfoAndFootprintMonth]= useState<UserInfoAndFootprint[]>([])
